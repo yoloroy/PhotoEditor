@@ -53,6 +53,7 @@ import androidx.annotation.RequiresPermission
 import androidx.core.graphics.drawable.toDrawable
 import com.burhanrashid52.photoediting.config.colors.ColorsConfig
 import com.burhanrashid52.photoediting.config.use_cases.GetColorsConfigData
+import com.burhanrashid52.photoediting.config.use_cases.GetToolNames
 import com.burhanrashid52.photoediting.utils.use_cases.GetJsonStringFromAssets
 
 class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickListener,
@@ -70,12 +71,13 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
     private var mWonderFont: Typeface? = null
     private var mRvTools: RecyclerView? = null
     private var mRvFilters: RecyclerView? = null
-    private val mEditingToolsAdapter = EditingToolsAdapter(this)
+    private lateinit var mEditingToolsAdapter: EditingToolsAdapter
     private val mFilterViewAdapter = FilterViewAdapter(this)
     private var mRootView: ConstraintLayout? = null
     private val mConstraintSet = ConstraintSet()
     private var mIsFilterVisible = false
     private lateinit var colorsConfig: ColorsConfig
+    private lateinit var getToolNames: GetToolNames
 
     @VisibleForTesting
     var mSaveImageUri: Uri? = null
@@ -98,6 +100,7 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
         mEmojiBSFragment?.setEmojiListener(this)
         mPropertiesBSFragment?.setPropertiesChangeListener(this)
         mShapeBSFragment?.setPropertiesChangeListener(this)
+        mEditingToolsAdapter = EditingToolsAdapter(this, getToolNames())
         val llmTools = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mRvTools?.layoutManager = llmTools
         mRvTools?.adapter = mEditingToolsAdapter
@@ -180,6 +183,7 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
         val getJsonStringFromAssets = GetJsonStringFromAssets(this)
         val getColorsConfigData = GetColorsConfigData(getJsonStringFromAssets)
         colorsConfig = ColorsConfig.Base(getColorsConfigData)
+        getToolNames = GetToolNames(getJsonStringFromAssets)
     }
 
     private fun applyConfigs() {

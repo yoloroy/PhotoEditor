@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.burhanrashid52.photoediting.R
+import com.burhanrashid52.photoediting.config.use_cases.ToolNames
 import java.util.ArrayList
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList
  * @version 0.1.2
  * @since 5/23/2018
  */
-class EditingToolsAdapter(private val mOnItemSelected: OnItemSelected) :
+class EditingToolsAdapter(private val mOnItemSelected: OnItemSelected, toolNames: ToolNames) :
     RecyclerView.Adapter<EditingToolsAdapter.ViewHolder>() {
     private val mToolList: MutableList<ToolModel> = ArrayList()
 
@@ -58,11 +59,12 @@ class EditingToolsAdapter(private val mOnItemSelected: OnItemSelected) :
     }
 
     init {
-        mToolList.add(ToolModel("Shape", R.drawable.ic_oval, ToolType.SHAPE))
-        mToolList.add(ToolModel("Text", R.drawable.ic_text, ToolType.TEXT))
-        mToolList.add(ToolModel("Eraser", R.drawable.ic_eraser, ToolType.ERASER))
-        mToolList.add(ToolModel("Filter", R.drawable.ic_photo_filter, ToolType.FILTER))
-        mToolList.add(ToolModel("Emoji", R.drawable.ic_insert_emoticon, ToolType.EMOJI))
-        mToolList.add(ToolModel("Sticker", R.drawable.ic_sticker, ToolType.STICKER))
+        val names = toolNames.toMap()
+        mToolList.add(ToolModel(names[ToolType.SHAPE]!!, R.drawable.ic_oval, ToolType.SHAPE))
+        mToolList.add(ToolModel(names[ToolType.TEXT]!!, R.drawable.ic_text, ToolType.TEXT))
+        mToolList.add(ToolModel(names[ToolType.ERASER]!!, R.drawable.ic_eraser, ToolType.ERASER))
+        mToolList.add(ToolModel(names[ToolType.FILTER]!!, R.drawable.ic_photo_filter, ToolType.FILTER))
+        mToolList.add(ToolModel(names[ToolType.EMOJI]!!, R.drawable.ic_insert_emoticon, ToolType.EMOJI))
+        mToolList.add(ToolModel(names[ToolType.STICKER]!!, R.drawable.ic_sticker, ToolType.STICKER))
     }
 }
