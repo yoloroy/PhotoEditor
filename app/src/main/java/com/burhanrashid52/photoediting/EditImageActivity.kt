@@ -50,6 +50,10 @@ import java.io.File
 import java.io.IOException
 import java.lang.Exception
 import androidx.annotation.RequiresPermission
+import androidx.core.graphics.drawable.toDrawable
+import com.burhanrashid52.photoediting.config.colors.ColorsConfig
+import com.burhanrashid52.photoediting.config.use_cases.GetColorsConfigData
+import com.burhanrashid52.photoediting.utils.use_cases.GetJsonStringFromAssets
 
 class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickListener,
     PropertiesBSFragment.Properties, ShapeBSFragment.Properties, EmojiListener, StickerListener,
@@ -71,6 +75,7 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
     private var mRootView: ConstraintLayout? = null
     private val mConstraintSet = ConstraintSet()
     private var mIsFilterVisible = false
+    private lateinit var colorsConfig: ColorsConfig
 
     @VisibleForTesting
     var mSaveImageUri: Uri? = null
@@ -81,6 +86,8 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
         makeFullScreen()
         setContentView(R.layout.activity_edit_image)
         initViews()
+        initConfigs()
+        applyConfigs()
         handleIntentImage(mPhotoEditorView?.source)
         mWonderFont = Typeface.createFromAsset(assets, "beyond_wonderland.ttf")
         mPropertiesBSFragment = PropertiesBSFragment()
@@ -167,6 +174,17 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
         imgClose.setOnClickListener(this)
         val imgShare: ImageView = findViewById(R.id.imgShare)
         imgShare.setOnClickListener(this)
+    }
+
+    private fun initConfigs() {
+        val getJsonStringFromAssets = GetJsonStringFromAssets(this)
+        val getColorsConfigData = GetColorsConfigData(getJsonStringFromAssets)
+        colorsConfig = ColorsConfig.Base(getColorsConfigData)
+    }
+
+    private fun applyConfigs() {
+        mRootView?.background = colorsConfig.backgroundColor.toDrawable()
+        mRvTools?.background = colorsConfig.toolsPanelColor.toDrawable()
     }
 
     override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {
