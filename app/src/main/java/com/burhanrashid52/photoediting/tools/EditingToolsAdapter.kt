@@ -59,12 +59,11 @@ class EditingToolsAdapter(private val mOnItemSelected: OnItemSelected, toolNames
     }
 
     init {
-        val names = toolNames.toMap()
-        mToolList.add(ToolModel(names[ToolType.SHAPE]!!, R.drawable.ic_oval, ToolType.SHAPE))
-        mToolList.add(ToolModel(names[ToolType.TEXT]!!, R.drawable.ic_text, ToolType.TEXT))
-        mToolList.add(ToolModel(names[ToolType.ERASER]!!, R.drawable.ic_eraser, ToolType.ERASER))
-        mToolList.add(ToolModel(names[ToolType.FILTER]!!, R.drawable.ic_photo_filter, ToolType.FILTER))
-        mToolList.add(ToolModel(names[ToolType.EMOJI]!!, R.drawable.ic_insert_emoticon, ToolType.EMOJI))
-        mToolList.add(ToolModel(names[ToolType.STICKER]!!, R.drawable.ic_sticker, ToolType.STICKER))
+        mToolList.add(ToolModel(toolNames[ToolType.SHAPE]!!, R.drawable.ic_oval, ToolType.SHAPE))
+        mToolList.add(ToolModel(toolNames[ToolType.TEXT]!!, R.drawable.ic_text, ToolType.TEXT))
+        mToolList.add(ToolModel(toolNames[ToolType.ERASER]!!, R.drawable.ic_eraser, ToolType.ERASER))
+        mToolList.add(ToolModel(toolNames[ToolType.FILTER]!!, R.drawable.ic_photo_filter, ToolType.FILTER))
+        mToolList.add(ToolModel(toolNames[ToolType.EMOJI]!!, R.drawable.ic_insert_emoticon, ToolType.EMOJI))
+        mToolList.add(ToolModel(toolNames[ToolType.STICKER]!!, R.drawable.ic_sticker, ToolType.STICKER))
     }
 }

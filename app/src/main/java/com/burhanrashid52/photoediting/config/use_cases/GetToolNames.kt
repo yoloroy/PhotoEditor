@@ -4,6 +4,7 @@ import com.burhanrashid52.photoediting.tools.ToolType
 import com.burhanrashid52.photoediting.utils.use_cases.GetJsonStringFromAssets
 import com.google.gson.Gson
 
+// TODO bad asset handling
 class GetToolNames(private val getJsonStringFromAssets: GetJsonStringFromAssets) {
 
     operator fun invoke(): ToolNames {
